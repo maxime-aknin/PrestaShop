@@ -59,8 +59,10 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
                 $_GET['id_product_attribute'] = Product::getDefaultAttribute($this->product->id);
             }
 
+            $current_url = Tools::getCurrentUrlProtocolPrefix().$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+            $canonical_url = $this->context->link->getProductLink($this->product);
             $id_product_attribute = $this->getIdProductAttribute();
-            parent::canonicalRedirection($this->context->link->getProductLink(
+            $ipa_url = $this->context->link->getProductLink(
                 $this->product,
                 null,
                 null,
@@ -68,7 +70,13 @@ class ProductControllerCore extends ProductPresentingFrontControllerCore
                 null,
                 null,
                 $id_product_attribute
-            ));
+            );
+
+            $current_url = preg_replace('/[#?].*$/', '', $current_url);
+            $ipa_url = preg_replace('/[#?].*$/', '', $ipa_url);
+            if($current_url !== $ipa_url) {
+                parent::canonicalRedirection($canonical_url);
+            }
         }
     }
 
