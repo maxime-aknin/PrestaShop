@@ -187,3 +187,27 @@ services:
         class: PrestaShopBundle\Translation\Api\InternationalApi
         parent: prestashop.translation.api
         public: true
+
+    # override dir translations
+    prestashop.translation.override_translations_factory:
+        class: PrestaShopBundle\Translation\Factory\OverrideTranslationsFactory
+
+    ps.override_translations_factory:
+        alias: "prestashop.translation.override_translations_factory"
+
+    prestashop.translation.override_provider:
+        class: PrestaShopBundle\Translation\Provider\OverrideProvider
+        arguments:
+            - "@prestashop.translation.database_loader"
+            - "%translations_dir%"
+        properties:
+            overrideExtractor: "@prestashop.translation.override_extractor"
+        tags:
+            - { name: "ps.override_translation_provider" }
+
+    prestashop.translation.override_extractor:
+        class: PrestaShopBundle\Translation\Extractor\OverrideExtractor
+        arguments:
+            - "@prestashop.translation.extractor.php"
+        properties:
+            overrideDirectory: "%override_dir%"

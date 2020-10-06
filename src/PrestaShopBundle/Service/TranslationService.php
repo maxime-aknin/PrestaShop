@@ -122,6 +122,9 @@ class TranslationService
                 $factory = $this->container->get('ps.theme_translations_factory');
             }
         }
+        else if ($this->requiresOverrideTranslationsFactory($type)) {
+            $factory = $this->container->get('ps.override_translations_factory');
+        }
 
         $locale = $this->langToLocale($lang);
 
@@ -137,6 +140,15 @@ class TranslationService
     private function requiresThemeTranslationsFactory($theme, $type)
     {
         return $type === 'themes' && null !== $theme;
+    }
+
+    /**
+     * @param string $type
+     * @return bool
+     */
+    private function requiresOverrideTranslationsFactory($type)
+    {
+        return "override" === $type;
     }
 
     /**

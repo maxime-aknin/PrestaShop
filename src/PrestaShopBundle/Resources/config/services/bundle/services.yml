@@ -5,6 +5,7 @@ parameters:
     themes_translations_dir:  "%kernel.cache_dir%/themes"
     modules_dir:              "%kernel.root_dir%/../modules"
     themes_dir:               "%kernel.root_dir%/../themes"
+    override_dir:             "%kernel.root_dir%/../override"
 
 services:
     _defaults:

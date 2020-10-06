@@ -1354,6 +1354,14 @@ class AdminTranslationsControllerCore extends AdminController
                 'sf_controller' => false,
                 'choice_theme' => false,
             ],
+            'override' =>  [
+                'name' => $this->trans('Override translations', array(), 'Admin.International.Feature'),
+                'var' => '_OVERRIDE',
+                'dir' => '',
+                'file' => '',
+                'sf_controller' => true,
+                'choice_theme' => false
+            ],
             'others' => [
                 'name' => $this->trans('Other translations', [], 'Admin.International.Feature'),
                 'var' => '_OTHERS',
